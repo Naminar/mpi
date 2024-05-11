@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include "inc/param.h"
+// const double epsilon = 0.0000001;
+// const unsigned nbox = 1;
+// const double x_min_range = 0.001;
+// const double x_max_range = 10.0;
+// const unsigned npoints = 3;
 
-const double epsilon = 0.001;
-const unsigned nbox = 10;
-const double x_min_range = 0.001;
-const double x_max_range = 10.0;
-const unsigned npoints = 3;
-
-double func(double x){
-    return sin(1/x);
-}
+// double func(double x){
+//     return sin(1/x);
+// }
 
 int main(int argc, char** argv){
 
@@ -23,14 +23,18 @@ int main(int argc, char** argv){
             square_prev = 0,
             square      = 0;
 
+    double x_min;
+    double x_max;
+    double h;
+
     time_t begin = clock();
     for (unsigned box_ind = 0; box_ind < nbox; box_ind++){
-        double x_min = x_min_range + box_ind*(x_max_range-x_min_range)/nbox;
-        double x_max = x_min_range + (box_ind + 1)*(x_max_range-x_min_range)/nbox;
+        x_min = x_min_range + box_ind*(x_max_range-x_min_range)/nbox;
+        x_max = x_min_range + (box_ind + 1)*(x_max_range-x_min_range)/nbox;
         delta = 1;
         points_inside = npoints;
         for (int step = 0; delta > box_eps; points_inside *= 2) {
-            double h = (x_max-x_min)/points_inside;
+            h = (x_max-x_min)/points_inside;
             hight = 0;
             for (int i = 0; i < points_inside; i++)
                 hight += func(x_min + h*(i+0.5));
