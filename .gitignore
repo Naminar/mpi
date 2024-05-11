@@ -4,3 +4,5 @@
 !lab2/CMakeLists.txt
 lab1/main
 lab1/parallel
+lab2/build
+lab2/dir
