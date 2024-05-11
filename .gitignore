@@ -1,3 +1,5 @@
 .vscode/
 *.out
 *.txt
+lab1/main
+lab1/parallel
