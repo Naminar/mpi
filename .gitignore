@@ -1,5 +1,6 @@
 .vscode/
 *.out
 *.txt
+!lab2/CMakeLists.txt
 lab1/main
 lab1/parallel
