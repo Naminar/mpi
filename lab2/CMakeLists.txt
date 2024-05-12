@@ -16,10 +16,12 @@ set(INCLUDE_DIR ${PROJECT_SOURCE_DIR})
 
 add_compile_options(-lm)
 
-add_executable(lab2
+add_executable(parallel
                ${SRC_DIR}/par_solver.c)
 
-target_link_libraries(lab2 PRIVATE m)
+target_link_libraries(parallel PRIVATE m)
 
-target_include_directories(lab2
+target_include_directories(parallel
                            PRIVATE ${INCLUDE_DIR}/inc)
+target_sources(parallel PRIVATE
+                ${SRC_DIR}/src/solver.c)
