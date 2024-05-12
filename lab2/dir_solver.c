@@ -3,15 +3,6 @@
 #include <math.h>
 #include <time.h>
 #include "inc/param.h"
-// const double epsilon = 0.0000001;
-// const unsigned nbox = 1;
-// const double x_min_range = 0.001;
-// const double x_max_range = 10.0;
-// const unsigned npoints = 3;
-
-// double func(double x){
-//     return sin(1/x);
-// }
 
 int main(int argc, char** argv){
 
