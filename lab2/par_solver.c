@@ -1,9 +1,13 @@
 
+#include <pthread.h>
 #include "solver.h"
 #include "param.h"
 
-pthread_mutex_t lock_get;
-pthread_mutex_t lock_write;
+// pthread_mutex_t lock_get;
+// pthread_mutex_t lock_write;
+
+pthread_spinlock_t lock_get;
+pthread_spinlock_t lock_write;
 
 void* run_calculating(void* queue){
 	Queue* qu = (Queue*) queue;
@@ -16,9 +20,9 @@ void* run_calculating(void* queue){
 	double h = 0;
 	
 	while(1){
-		pthread_mutex_lock(&lock_get);
+		pthread_spin_lock(&lock_get);
 		RangeBox* task = get_box(qu);
-		pthread_mutex_unlock(&lock_get);
+		pthread_spin_unlock(&lock_get);
 		if (task){
 			delta = 1;
 			points_inside = npoints;
@@ -33,9 +37,9 @@ void* run_calculating(void* queue){
 				square_prev = box_square;
 			}
 
-			pthread_mutex_lock(&lock_write);
+			pthread_spin_lock(&lock_write);
 			qu->square += box_square;
-			pthread_mutex_unlock(&lock_write);
+			pthread_spin_unlock(&lock_write);
 		} else 
 			break;
 	}
@@ -52,8 +56,8 @@ int main(int argc, char** argv){
             square_prev = 0,
             square      = 0;
 
-	assert(!pthread_mutex_init(&lock_get, NULL));
-	assert(!pthread_mutex_init(&lock_write, NULL));
+	assert(!pthread_spin_init(&lock_get, PTHREAD_PROCESS_PRIVATE));
+	assert(!pthread_spin_init(&lock_write, PTHREAD_PROCESS_PRIVATE));
 
 	Queue* task_queue = init_queue();
 	for (unsigned box_ind = 0; box_ind < nbox; box_ind++){
@@ -78,8 +82,8 @@ int main(int argc, char** argv){
        pthread_join(tid[i], NULL);
 	time_t end = clock();
 	
-	pthread_mutex_destroy(&lock_get);
-	pthread_mutex_destroy(&lock_write); 
+	pthread_spin_destroy(&lock_get);
+	pthread_spin_destroy(&lock_write); 
     
 	printf("square is %lf, epsilon is %lf\n", task_queue->square, epsilon);
     printf("%lf\n",  (double)(end - (begin_up + begin_down)/2) / CLOCKS_PER_SEC);

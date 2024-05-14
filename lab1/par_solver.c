@@ -18,10 +18,6 @@ double u_t(double t){
 }
 void do_dump(int time_num, int axes_num, double** u);
 
-// double func(float t, float x){
-//     return sin(x)*cos(t);
-// }
-
 typedef struct Node{
     double t_k;
     double x_m;
