@@ -49,7 +49,7 @@ void* run_calculating(void* queue){
 int main(int argc, char** argv){
     double 	box_eps = epsilon/nbox; 
     unsigned 	points_inside = npoints,
-				thread_number = 3;;
+				thread_number = 4;
     double  delta       = 1,
             hight       = 0,
             box_square  = 0,
