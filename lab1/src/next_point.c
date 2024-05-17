@@ -2,7 +2,7 @@
 #include "../inc/next_point.h"
 
 double func(float t, float x){
-    return sin(x)*cos(t);
+    return t*x;
 }
 
 double next_point_angle(Node node, double h, double tau){

@@ -6,17 +6,17 @@
 
 #include "inc/methods.h"
 
-int const TIME_DIAP = 10;
-int const AXES_DIAP = 10;
+int const TIME_DIAP = 2;
+int const AXES_DIAP = 1;
 double const tau = 0.01;
 double const h = 0.01;
 
 double u_x(double x){
-    return 0; 
+    return x*x*x/12; 
 }
 
 double u_t(double t){
-    return 0;
+    return t*t*t/12;
 }
 
 int main(int argc, char** argv){
