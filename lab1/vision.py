@@ -18,8 +18,8 @@ def make_3dplot(u_time, u_x, u_val):
     u_x, u_time = np.meshgrid(u_x, u_time)
     ax.plot_surface(u_x, u_time, np.array(u_val), cmap=cm.coolwarm)
     ax.set_title('3D representation of U(t,x)')
-    ax.set_ylabel('x')
-    ax.set_xlabel('t')
+    ax.set_xlabel('x')
+    ax.set_ylabel('t')
     ax.set_zlabel('u')
     plt.savefig('3D.jpeg')
 
