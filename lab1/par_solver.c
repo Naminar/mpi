@@ -116,12 +116,10 @@ int main(int argc, char ** argv)
             MPI_Send(&box[t_ind+1][x_cell_range-1], 1, MPI_DOUBLE, 
                         rank+1, tag, MPI_COMM_WORLD);
         }
-        // do_dump(time_num, x_cell_range, box);
 
         MPI_Barrier(MPI_COMM_WORLD);
         double* buffer_recv = (double*) calloc(axes_num, sizeof(double));
         for (int layer = 0; layer < time_num; layer += 1){
-            // double* buffer_recv = (double*) malloc(x_cell_range*size, sizeof(double));
             MPI_Allgather(box[layer],
                     x_cell_range,
                     MPI_DOUBLE,
@@ -162,14 +160,7 @@ int main(int argc, char ** argv)
             node.u_k_m_1 = box[t_ind][x_ind-1];
             box[t_ind+1][x_ind] = next_point_angle(node, h, tau);
         }
-
-        // do_dump(time_num, x_cell_range, box);
-
-        // MPI_Recv (u,axes_num,MPI_DOUBLE,0,tag,MPI_COMM_WORLD, MPI_STATUS_IGNORE); //&status
-        // for (int x_ind = 0; x_ind < axes_num; x_ind += 1)
-        //     printf("%lf ", u[x_ind]);
-        // more code here
-        // angle
+        
         t_ind = 0;
         for (int x_ind = 0; x_ind < x_cell_range; x_ind += 1){
             node.t_k = t_ind*tau;
@@ -184,7 +175,6 @@ int main(int argc, char ** argv)
                         rank+1, tag, MPI_COMM_WORLD);
 
         for (int t_ind = 1; t_ind < time_num - 1; t_ind += 1){
-            // printf("recv %d", rank);
             MPI_Recv (&box[t_ind][0],1,MPI_DOUBLE,rank-1,tag,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             for (int x_ind = 1; x_ind < x_cell_range - 1; x_ind += 1){
                 node.t_k = t_ind*tau;
@@ -202,15 +192,12 @@ int main(int argc, char ** argv)
             node.u_k_m_1 = box[t_ind][x_ind-1];
             box[t_ind+1][x_ind] = next_point_angle(node, h, tau);
             
-            if (rank < size - 1){\
-                // printf("send last point %d", rank);
+            if (rank < size - 1){
                 MPI_Send(&box[t_ind+1][x_cell_range-1], 1, MPI_DOUBLE, 
                         rank+1, tag, MPI_COMM_WORLD);
             }
         }
 
-        // do_dump(time_num, x_cell_range, box);
-        // printf("Done %d\n", rank);
         MPI_Barrier(MPI_COMM_WORLD); 
         double* buffer_recv = (double*) calloc(axes_num, sizeof(double));
         for (int layer = 0; layer < time_num; layer += 1){
@@ -226,7 +213,6 @@ int main(int argc, char ** argv)
     }
     
     MPI_Finalize();
-    // More code here
 }
 
 
