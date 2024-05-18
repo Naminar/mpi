@@ -28,19 +28,20 @@ def make_3dplot(u_time, u_x, u_val):
         angle *= 2
         angle_norm = (angle + 180) % 360 - 180
         elev = azim = roll = 0
-        if angle <= 180:
-            elev = angle_norm
-        elif angle <= 180*2:
-            azim = angle_norm
-        elif angle <= 180*3:
-            roll = angle_norm
-        else:
-            elev = azim = roll = angle_norm
+        # if angle <= 180:
+        #     elev = angle_norm
+        # elif angle <= 180*2:
+        #     azim = angle_norm
+        # elif angle <= 180*3:
+        #     roll = angle_norm
+        # else:
+        #     elev = azim = roll = angle_norm
+        azim = angle_norm
         ax.view_init(elev, azim, roll)
 
     gif_3d = FuncAnimation(fig,
                         func = animate,
-                        frames = np.arange(0, 360 + 1, 1),
+                        frames = np.arange(0, 180 + 1, 1),
                         interval = 0.03)
     gif_3d.save("3d_rotating.gif",writer='imagemagick',fps=30)
     plt.close()
