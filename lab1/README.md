@@ -40,7 +40,7 @@ $$
 \* Taken from [here](https://ozlib.com/823935/informatika/uravnenie_perenosa).
 
 <p align="center">
-    <img alt="Light" src="https://ozlib.com/htm/img/7/20357/642.png" width="45%">
+    <img alt="Light" src="README/solve.png" width="54%">
     <img alt="Light" src="https://ozlib.com/htm/img/7/20357/643.png" width="45%"> 
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <small>Numerical solution of the equation according to the difference scheme: a - when the Courant condition is met; b - with violation of the Courant condition.</small>
