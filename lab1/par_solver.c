@@ -43,7 +43,6 @@ double next_point_cross(Node node, double h, double tau){
 
 int main(int argc, char ** argv)
 {
-    int * array;
     int tag=1;
     int size;
     int rank;
@@ -61,31 +60,28 @@ int main(int argc, char ** argv)
     {
         double* array = NULL;
         double** u = (double**) calloc(time_num, sizeof(double*));
-        
+        double** box = (double**) calloc(time_num, sizeof(double*));
+
         for (int t_ind = 0; t_ind < time_num; t_ind += 1){
             array = (double*) calloc(axes_num*2, sizeof(double));
             if (!array)
                 MPI_Abort (MPI_COMM_WORLD,1);
             u[t_ind] = array;
-        }
-        
-        double** box = (double**) calloc(time_num, sizeof(double*));
-        for (int t_ind = 0; t_ind < time_num; t_ind += 1){
+
             array = (double*) calloc(x_cell_range, sizeof(double));
             if (!array)
                 MPI_Abort (MPI_COMM_WORLD,1);
             box[t_ind] = array;
         }
-
         // edge
         for (int t_ind = 0; t_ind < time_num; t_ind += 1)
             box[t_ind][0] = u_t(t_ind*tau);
         for (int x_ind = 0; x_ind < x_cell_range; x_ind += 1)
             box[0][x_ind] = u_x(x_ind*h); 
-
+            
         Node node;
-        // angle
         int t_ind = 0;
+        // angle
         for (int x_ind = 0; x_ind < x_cell_range; x_ind += 1){
             node.t_k = t_ind*tau;
             node.x_m = x_ind*h;
@@ -118,7 +114,6 @@ int main(int argc, char ** argv)
         }
 
         MPI_Barrier(MPI_COMM_WORLD);
-        double* buffer_recv = (double*) calloc(axes_num, sizeof(double));
         for (int layer = 0; layer < time_num; layer += 1){
             MPI_Allgather(box[layer],
                     x_cell_range,
@@ -130,8 +125,14 @@ int main(int argc, char ** argv)
         }
         clock_t end = clock();
         printf("%lf\n",  (double)(end - begin) / CLOCKS_PER_SEC);
-
         do_dump(time_num, axes_num, u);
+        for (int t_ind = 0; t_ind < time_num; t_ind += 1){
+            free(box[t_ind]);
+            free(u[t_ind]);
+        }
+        // free(buffer_recv);
+        free(box);
+        free(u);
     }
      
     if (rank != 0)
@@ -144,12 +145,10 @@ int main(int argc, char ** argv)
                 MPI_Abort (MPI_COMM_WORLD,1);
             box[t_ind] = array;
         }
-
         // edge
         for (int x_ind = 0; x_ind < x_cell_range; x_ind += 1){
             box[0][x_ind] = u_x((x_cell_range*rank + x_ind)*h);
         }
-
         Node node;
         // angle
         int t_ind = 0;
@@ -175,7 +174,7 @@ int main(int argc, char ** argv)
                         rank+1, tag, MPI_COMM_WORLD);
 
         for (int t_ind = 1; t_ind < time_num - 1; t_ind += 1){
-            MPI_Recv (&box[t_ind][0],1,MPI_DOUBLE,rank-1,tag,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv (&box[t_ind][0], 1, MPI_DOUBLE, rank-1, tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             for (int x_ind = 1; x_ind < x_cell_range - 1; x_ind += 1){
                 node.t_k = t_ind*tau;
                 node.x_m = (x_cell_range*rank + x_ind)*h;
@@ -209,9 +208,12 @@ int main(int argc, char ** argv)
                     MPI_DOUBLE,
                     MPI_COMM_WORLD);
         }
-
+        for (int t_ind = 0; t_ind < time_num; t_ind += 1)
+            free(box[t_ind]);
+        free(buffer_recv);
+        free(box);
     }
-    
+
     MPI_Finalize();
 }
 
@@ -235,6 +237,6 @@ void do_dump(int time_num, int axes_num, double** u){
             }
             fprintf(dump, "\n");
         }
-    } else
-        fclose(dump);
+    }
+    fclose(dump);
 }
