@@ -44,7 +44,7 @@ int main(int argc, char** argv){
     for (int x_ind = 0; x_ind < axes_num; x_ind += 1)
         u[0][x_ind] = u_x(x_ind*h);
 
-    solve_angle(time_num, axes_num, u, h, tau);
+    solve_cross(time_num, axes_num, u, h, tau);
 
     time_t end = clock();
     printf("%lf\n",  (double)(end - begin) / CLOCKS_PER_SEC);
