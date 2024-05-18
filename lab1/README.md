@@ -5,32 +5,33 @@
 To find a solution, you need to use one of the following difference schemes:
 1. Angle method
     <p align="center">
-    <img alt="Light" src="README/angle.png" width="6%">
-    <img alt="Light" src="README/angle-sch.png" width="35%">
+    <img alt="Light" src="README/angle.png" width="7%">
+    <img alt="Light" src="README/angle-sch.png" width="45%">
     </p>
 2. Four-points method
     <p align="center">
-    <img alt="Light" src="README/4p.png" width="7%">
-    <img alt="Light" src="README/4p-sch.png" width="35%">
+    <img alt="Light" src="README/4p.png" width="10%">
+    <img alt="Light" src="README/4p-sch.png" width="70%">
     </p>
 3. Three-points method
     <p align="center">
-    <img alt="Light" src="README/3p.png" width="7%">
-    <img alt="Light" src="README/3p-sch.png" width="35%">
+    <img alt="Light" src="README/3p.png" width="10%">
+    <img alt="Light" src="README/3p-sch.png" width="65%">
     </p>
 4. Cross method
     <p align="center">
-    <img alt="Light" src="README/cross.png" width="7%">
-    <img alt="Light" src="README/cross-sch.png" width="35%">
+    <img alt="Light" src="README/cross.png" width="10%">
+    <img alt="Light" src="README/cross-sch.png" width="65%">
     </p>
 
 ## Results and Discussion
 Given system is:
+
 $$ 
 \begin{cases}
 u + c \cdot u = t \cdot x,\\
-u(0,x) = \fraq{x^{3}}{12 \cdot c^{2}},\\
-u(t,0) = \fraq{t^{3} \cdot c}{12}, \\
+u(0,x) = \frac{x^{3}}{12 \cdot c^{2}},\\
+u(t,0) = \frac{t^{3} \cdot c}{12}, \\
 c = 1
 \end{cases}
 $$
@@ -48,7 +49,7 @@ $$
 #### Numerical solution for the given system
 
 <p align="center">
-    <img alt="Light" src="2D.jpeg" width="45%">
+    <img alt="Light" src="2D.jpeg" width="85%">
 </p>
 
 <p align="center">
