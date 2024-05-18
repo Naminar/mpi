@@ -36,24 +36,49 @@ c = 1
 \end{cases}
 $$
 
-#### Analytical solution for this system:
+### Analytical solution for this system:
 \* Taken from [here](https://ozlib.com/823935/informatika/uravnenie_perenosa).
 
 <p align="center">
-    <img alt="Light" src="README/solve.png" width="54%">
+    <img alt="Light" src="README/solve.png" width="40%">
     <img alt="Light" src="https://ozlib.com/htm/img/7/20357/643.png" width="45%"> 
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <small>Numerical solution of the equation according to the difference scheme: a - when the Courant condition is met; b - with violation of the Courant condition.</small>
 </p>
 
-#### Numerical solution for the given system
+### Numerical solution for the given system
 
+#### Cross method
 <p align="center">
-    <img alt="Light" src="2D.jpeg" width="85%">
+    <img alt="Light" src="img/cross/2D.jpeg" width="85%">
 </p>
 
 <p align="center">
-    <img alt="Dark" src="3D.jpeg" width="45%">
+    <img alt="Dark" src="img/cross/3D.jpeg" width="45%">
     &nbsp; &nbsp; &nbsp; &nbsp;
-    <img alt="Dark" src="3d_rotating.gif" width="45%">
+    <img alt="Dark" src="img/cross/3d_rotating.gif" width="45%">
+</p>
+
+#### Angle method
+
+<p align="center">
+    <img alt="Dark" src="img/angle/3D.jpeg" width="45%">
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <img alt="Dark" src="img/angle/3d_rotating.gif" width="45%">
+</p>
+
+#### Four-points method
+
+<p align="center">
+    <img alt="Dark" src="img/4p/3D.jpeg" width="45%">
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <img alt="Dark" src="img/4p/3d_rotating.gif" width="45%">
+</p>
+
+#### Three-points method
+
+<p align="center">
+    <img alt="Dark" src="img/3p/3D.jpeg" width="45%">
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <img alt="Dark" src="img/3p/3d_rotating.gif" width="45%">
 </p>
